@@ -4,9 +4,9 @@ import ListProducts from './components/ListProducts';
 import RegisterProduct from './components/RegisterProduct';
 
 function App() {
-  const [activeComponent, setActiveComponent] = useState('');
+  const [activeComponent, setActiveComponent] = useState('cadastro');
 
-  const handleClick = (component) => {
+  const handleClick = (component: string) => {
     setActiveComponent(component);
   };
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Product from './Product';
 import '../styles/RegisterProduct.css';
 
@@ -9,8 +9,25 @@ type Props = {
 export default function RegisterProduct(props: Props) {
   const { handleSubmit } = props;
 
+  const [productInfo, setProductInfo] = useState({
+    name: '',
+    description: '',
+    price: '',
+    image: '',
+    tags: '',
+  });
+
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleSubmit(productInfo);
+  };
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = event.target;
+    setProductInfo((prevProductInfo) => ({
+      ...prevProductInfo,
+      [id]: value,
+    }));
   };
 
   return (
@@ -20,27 +37,55 @@ export default function RegisterProduct(props: Props) {
         <form onSubmit={ onSubmit }>
           <label htmlFor="name">
             Nome
-            <input type="text" id="name" required />
+            <input
+              type="text"
+              id="name"
+              required
+              value={ productInfo.name }
+              onChange={ handleInputChange }
+            />
           </label>
           <label htmlFor="description">
             Descrição
-            <input type="text" id="description" required />
+            <input
+              type="text"
+              id="description"
+              required
+              value={ productInfo.description }
+              onChange={ handleInputChange }
+            />
           </label>
           <label htmlFor="price">
             Preço
-            <input type="number" id="price" required />
+            <input
+              type="number"
+              id="price"
+              required
+              value={ productInfo.price }
+              onChange={ handleInputChange }
+            />
           </label>
           <label htmlFor="image">
             Imagem
-            <input type="text" id="image" />
+            <input
+              type="text"
+              id="image"
+              value={ productInfo.image }
+              onChange={ handleInputChange }
+            />
           </label>
           <label htmlFor="tags">
             Tags
-            <input type="text" id="tags" />
+            <input
+              type="text"
+              id="tags"
+              value={ productInfo.tags }
+              onChange={ handleInputChange }
+            />
           </label>
           <button type="submit">Salvar</button>
         </form>
-        {/* <Product productInfo={} /> */}
+        <Product productInfo={ productInfo } />
       </div>
     </main>
   );
