@@ -1,16 +1,22 @@
 import './styles/App.css';
+import { useState } from 'react';
 import ListProducts from './components/ListProducts';
 import RegisterProduct from './components/RegisterProduct';
 
 function App() {
+  const [activeComponent, setActiveComponent] = useState('');
+
+  const handleClick = (component) => {
+    setActiveComponent(component);
+  };
   return (
     <div className="app">
       <header>
-        <button>Cadastrar</button>
-        <button>Ver produtos</button>
+        <button onClick={ () => handleClick('cadastro') }>Cadastrar</button>
+        <button onClick={ () => handleClick('lista') }>Ver produtos</button>
       </header>
-      <RegisterProduct />
-      <ListProducts products={ [] } />
+      {activeComponent === 'cadastro' && <RegisterProduct />}
+      {activeComponent === 'lista' && <ListProducts products={ [] } />}
     </div>
   );
 }
