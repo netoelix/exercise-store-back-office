@@ -29,7 +29,7 @@ function App() {
       {activeComponent === 'cadastro'
        && <RegisterProduct handleSubmit={ handleAddProduct } />}
       {activeComponent === 'lista'
-       && <ListProducts products={ products } handleDelete={ handleDelete } />}
+      && <ListProducts products={ products } handleDelete={ handleDelete } />}
     </div>
   );
 }
