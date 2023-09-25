@@ -15,6 +15,11 @@ function App() {
     setProducts([...products, newProduct]);
   };
 
+  const handleDelete = (productId) => {
+    const updatedProducts = products.filter((product) => product.id !== productId);
+    setProducts(updatedProducts);
+  };
+
   return (
     <div className="app">
       <header>
@@ -23,7 +28,8 @@ function App() {
       </header>
       {activeComponent === 'cadastro'
        && <RegisterProduct handleSubmit={ handleAddProduct } />}
-      {activeComponent === 'lista' && <ListProducts products={ products } />}
+      {activeComponent === 'lista'
+       && <ListProducts products={ products } handleDelete={ handleDelete } />}
     </div>
   );
 }

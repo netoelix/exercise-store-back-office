@@ -2,24 +2,47 @@ import React from 'react';
 import { ProductWithId } from '../types';
 import Product from './Product';
 
-type Props = {
-  products: ProductWithId[]
-  handleDelete: (() => void)
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  tags: string;
 };
 
-export default function ListProducts({ products, handleDelete }: Props) {
+type Props = {
+  products: Product[];
+  handleDelete: (productId: string) => void;
+};
+
+export default function ListProducts(props: Props) {
+  const { products, handleDelete } = props;
+
   return (
-    <main>
-      <h1>Lista de produtos</h1>
-      <div className="list-container">
-        {products.length === 0 && <h2>Nenhum produto cadastrado</h2>}
+    <div className="product-list">
+      <h1>Lista de Produtos</h1>
+      <ul>
         {products.map((product) => (
-          <Product
-            key={ product.id }
-            productInfo={ product }
-            handleDelete={ handleDelete }
-          />))}
-      </div>
-    </main>
+          <li key={ product.id }>
+            <div>
+              <h2>{product.name}</h2>
+              <p>{product.description}</p>
+              <p>
+                Preço:
+                {' '}
+                {product.price}
+              </p>
+              <p>
+                Tags:
+                {' '}
+                {product.tags}
+              </p>
+            </div>
+            <button onClick={ () => handleDelete(product.id) }>X</button>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
