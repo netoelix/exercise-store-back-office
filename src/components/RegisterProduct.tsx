@@ -3,7 +3,7 @@ import Product from './Product';
 import '../styles/RegisterProduct.css';
 
 type Props = {
-  handleSubmit: () => void
+  handleSubmit: (newProduct: any) => void;
 };
 
 export default function RegisterProduct(props: Props) {
@@ -19,7 +19,19 @@ export default function RegisterProduct(props: Props) {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleSubmit(productInfo);
+    const productId = Date.now().toString();
+    const newProduct = {
+      id: productId,
+      ...productInfo,
+    };
+    handleSubmit(newProduct);
+    setProductInfo({
+      name: '',
+      description: '',
+      price: 0,
+      image: '',
+      tags: '',
+    });
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
